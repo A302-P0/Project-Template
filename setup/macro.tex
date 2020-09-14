@@ -185,7 +185,7 @@
 %Imports all the files matching #1\i where i is a incrementing number starting at 1 and ending at #2
 \newcommand{\aaufileimport}[2]{}
 \ForEach{,}{
-    \edef\FileName{#1\i}%     The % here are necessary to eliminate any
+    \edef\FileName{#1\i.tex}%     The % here are necessary to eliminate any
     \IfFileExists{/sections/\FileName}{%  spurious spaces that may get inserted
        \input{\FileName}%       at these points
     }{%
