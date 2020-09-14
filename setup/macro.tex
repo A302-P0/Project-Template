@@ -1,0 +1,194 @@
+%Creates the aau frontpage
+%\aaufrontpage{title}{subtitle}{document type}{deparment}{name list}
+\newcommand{\aaufrontpage}[5]{
+    \begin{titlepage}
+        \iflanguage{danish}{
+            \textbf{\pdfbookmark[0]{Forside}{label:forside}}
+        }{
+            \textbf{\pdfbookmark[0]{Front page}{label:frontpage}}
+        }
+          \addtolength{\hoffset}{0.5\evensidemargin-0.5\oddsidemargin} %set equal margins on the frontpage - remove this line if you want default margins
+          \noindent%
+          \begin{tabular}{@{}p{\textwidth}@{}}
+                \toprule[2pt]
+                \midrule
+                \vspace{0.2cm}
+                \begin{center}
+                \Huge{\textbf{
+                  #1 % Title
+            }}
+            \end{center}
+            \begin{center}
+              \Large{
+                - #2 -% Subtitle
+              }
+            \end{center}
+            \vspace{0.2cm}\\
+            \midrule
+            \toprule[2pt]
+          \end{tabular}
+          \vspace{4 cm}
+          \begin{center}
+            {\large
+              #3 % Document type
+            }\\
+            \ForEach{,}{
+                \vspace{0.2cm}
+                {\Large
+                  \thislevelitem
+                }\\
+            }{#5}
+          \end{center}
+          \vfill
+          \begin{center}
+          \iflanguage{danish}{
+            Aalborg Universitet\\
+          }{
+            Aalborg University\\
+          }
+        #4
+        \end{center}
+    \end{titlepage}
+    \clearpage
+}
+
+%Creates the aau titlepage
+%\aautitlepage{title}{theme}{project periode}{group name}{particpant list}{supervisor list}{copies}{deparment}
+\newcommand{\aautitlepage}[8]{
+    \iflanguage{danish}{
+        \textbf{\pdfbookmark[0]{Titel side}{label:titelside}}
+    }{
+        \textbf{\pdfbookmark[0]{Title page}{label:titlepage}}
+    }
+    %set up various length
+    \ifx\titlepageleftcolumnwidth\undefined
+      \newlength{\titlepageleftcolumnwidth}
+      \newlength{\titlepagerightcolumnwidth}
+    \fi
+    \setlength{\titlepageleftcolumnwidth}{0.5\textwidth-\tabcolsep}
+    \setlength{\titlepagerightcolumnwidth}{\textwidth-2\tabcolsep-\titlepageleftcolumnwidth}
+    %create title page
+    \thispagestyle{empty}
+    \noindent%
+    \begin{tabular}{@{}ll@{}}
+      \parbox{\titlepageleftcolumnwidth}{
+        \iflanguage{danish}{%
+          \includegraphics[width=\titlepageleftcolumnwidth]{figures/aau_logo_da}
+        }{%
+          \includegraphics[width=\titlepageleftcolumnwidth]{figures/aau_logo_en}
+        }
+      } &
+      \parbox{\titlepagerightcolumnwidth}{\raggedleft\sf\small
+        #8
+      }\bigskip\\
+       \iflanguage{danish}{
+            \parbox[t]{\titlepageleftcolumnwidth}{
+                \textbf{Titel:}\\ #1\bigskip\par
+                \textbf{Tema:}\\ #2\bigskip\par
+                \textbf{Projektperiode:}\\ #3\bigskip\par
+                \textbf{Projektgruppe:}\\ #4\bigskip\par
+                \textbf{Deltager(e):}\\ \ForEach{,}{\thislevelitem\\}{#5}\par
+                \textbf{Vejleder(e):}\\ \ForEach{,}{\thislevelitem\\}{#6}\par
+                \textbf{Oplagstal:} #7\bigskip\par
+                \textbf{Sidetal:} \pageref{LastPage}\bigskip\par
+                \textbf{Afleveringsdato:}\\ \today
+              } &
+       }{
+            \parbox[t]{\titlepageleftcolumnwidth}{
+                \textbf{Title:}\\ #1\bigskip\par
+                \textbf{Theme:}\\ #2\bigskip\par
+                \textbf{Project Period:}\\ #3\bigskip\par
+                \textbf{Project Group:}\\ #4\bigskip\par
+                \textbf{Participant(s):}\\ \ForEach{,}{\thislevelitem \\}{#5}\bigskip\par
+                \textbf{Supervisor(s):}\\ \ForEach{,}{\thislevelitem \\}{#6}\bigskip\par
+                \textbf{Copies:} #7\bigskip\par
+                \textbf{Page Numbers:} \pageref{LastPage}\bigskip\par
+                \textbf{Date of Completion:}\\ \today
+            } &
+        }
+      \parbox[t]{\titlepagerightcolumnwidth}{%
+      \textbf{Abstract:}\bigskip\par
+        \fbox{\parbox{\titlepagerightcolumnwidth-2\fboxsep-2\fboxrule}{%
+          \input{sections/abstract.tex}
+        }}
+      }\\
+    \end{tabular}
+    \vfill
+    \iflanguage{danish}{%
+      \noindent{\footnotesize\emph{Rapportens indhold er frit tilgængeligt, men offentliggørelse (med kildeangivelse) må kun ske efter aftale med forfatterne.}}
+    }{%
+      \noindent{\footnotesize\emph{The content of this report is freely available, but publication (with reference) may only be pursued due to agreement with the author.}}
+    }
+    \cleardoublepage
+}
+
+%Creates the aau preface
+%\aaupreface{name,email; ...}
+\newcommand{\aaupreface}[1]{
+    \iflanguage{danish}{
+        \chapter*{Forord\markboth{Forord}{Forord}}\label{ch:forord}
+        \addcontentsline{toc}{chapter}{Forord}
+    }{
+        \chapter*{Preface\markboth{Preface}{Preface}}\label{ch:preface}
+        \addcontentsline{toc}{chapter}{Preface}
+    }
+    \input{sections/preface} \\ \\
+    \vspace{\baselineskip}\hfill Aalborg University, \today
+    \vfill\noindent
+    \ForEach{;}{
+        \ForEachSublevel{,}{
+            \ifnum \the\thislevelcount=1
+                \begin{minipage}[b]{0.45\textwidth}
+                    \centering
+                    \rule{\textwidth}{0.5pt}\\
+                    \thislevelitem\\
+            \else
+                    {\footnotesize \thislevelitem}
+                \end{minipage}
+            \fi
+        }
+        \hfill
+        \pgfmathparse{int(mod(\the\thislevelcount,2))}
+        \ifnum \pgfmathresult=0
+            \vspace{3\baselineskip}
+            \vfill\noindent
+        \fi
+    }{
+    #1
+    }
+    \clearpage
+}
+
+%Creates the aau tabelofcontents
+\newcommand{\aautableofcontents}[0]{
+    \iflanguage{danish}{
+        \pdfbookmark[0]{Indhold}{label:indhold}
+    }{
+        \pdfbookmark[0]{Contents}{label:contents}
+    }
+    \pagestyle{fancy} %enable headers and footers again
+    \tableofcontents
+}
+
+%Creates the copyright info
+\newcommand{\aaucopyright}[0]{
+\thispagestyle{empty}
+    {\small
+    \strut\vfill % push the content to the bottom of the page
+    \noindent Copyright \copyright{} Aalborg Universitet \the\year{}\par
+    \vspace{0.2cm}
+    \noindent Denne rapport er udarbejdet i Overleaf og formateret i LaTeX. Links til eksterne hjemmesider er senest blevet tjekket og verificeret og/eller ajourført, dagen før aflevering.
+    }
+    \clearpage
+}
+
+%Imports all the files matching #1\i where i is a incrementing number starting at 1 and ending at #2
+\newcommand{\aaufileimport}[2]{}
+\ForEach{,}{
+    \edef\FileName{#1\i}%     The % here are necessary to eliminate any
+    \IfFileExists{/sections/\FileName}{%  spurious spaces that may get inserted
+       \input{\FileName}%       at these points
+    }{%
+        \ExitForEach
+    }
+}{1,...#2}

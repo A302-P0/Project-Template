@@ -1,0 +1,77 @@
+\input{setup/preamble.tex}% package inclusion and set up of the document
+\input{setup/hyphenations.tex}% 
+\input{setup/macro.tex}% my new macros
+\title{Project Template}
+\author{lwalst20 }
+\date{September 2020}
+
+\begin{document}
+%frontmatter
+\selectlanguage{danish} % Sets the language to either {danish} or {english}
+\pagestyle{empty} %disable headers and footers
+\pagenumbering{roman} %use roman page numbering in the frontmatter
+
+\aaufrontpage{ % Title
+        Title
+    }{ % Subtitle
+        Analyse og Problemformulering
+    }{ % Document type
+        P0 Projekt udarbejdet af gruppe A302
+    }{ % Deparment
+        Det Tekniske Fakultet for IT og Design
+    }{ % Participants
+        Anders Geert,
+        Christoffer Trebbien Jønsson,
+        Jamie Lee Smith Hammer,
+        Loke Walsted,
+        Mads Lundfold,
+        Noah Alexander Frithiof
+}
+\aaucopyright{}
+%\aautitlepage{title}{theme}{project periode}{group name}{particpant list}{supervisor list}{copies}{deparment}
+\aautitlepage{  % Project Title
+        Rapportens titel
+    }{ % Project Theme
+        Analyse og Problemformulering
+    }{ % Project Periode
+        Efterårssemestret 2020
+    }{ % Group name
+        A302
+    }{ % Participants
+        Anders Geert,
+        Christoffer Trebbien Jønsson,
+        Jamie Lee Smith Hammer,
+        Loke Walsted,
+        Mads Lundfold,
+        Noah Alexander Frithiof
+    }{ % Supervisor
+        Kurt Nørmark
+    }{ % Amount of copies
+        1
+    }{ % Deparment
+      \textbf{Electronics and IT}\\
+      Aalborg University\\
+      \href{http://www.aau.dk}{http://www.aau.dk}
+    }
+% Generate table of contents
+\aautableofcontents{}
+
+\aaupreface{ % Participants
+    Anders Geert,ageert20@student.aau.dk;
+    Christoffer Trebbien Jønsson,cjanss20@student.aau.dk;
+    Jamie Lee Smith Hammer,jhamme20@student.aau.dk;
+    Loke Walsted,lwalst20@student.aau.dk;
+    Mads Lundfold,mlundf20@student.aau.dk;
+    Noah Alexander Frithiof,nfrith20@student.aau.dk
+}
+
+%use arabic page numbering in the mainmatter
+\pagenumbering{arabic}
+
+% #1 defines the first part of the filename. #2 says the affix goes from 1 to 20
+\aaufileimport{Chapter}{20}
+
+\printbibliography[heading=bibintoc]
+\label{bib:mybiblio}
+\appendix
+\end{document}
